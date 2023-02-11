@@ -16,7 +16,7 @@ class UIComponent {
       // Default to everything hidden while the stylesheet loads.
       styleSheet.innerHTML = "iframe {display: none;}";
 
-      // Fetch "content_scripts/vimium.css" from chrome.storage.local; the background page caches it there.
+      // Fetch "vimium/content_scripts/vimium.css" from chrome.storage.local; the background page caches it there.
       chrome.storage.local.get("vimiumCSSInChromeStorage",
                                items => styleSheet.innerHTML = items.vimiumCSSInChromeStorage);
 

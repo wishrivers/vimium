@@ -65,7 +65,7 @@ const Vomnibar = {
 
   init() {
     if (!this.vomnibarUI)
-      this.vomnibarUI = new UIComponent("pages/vomnibar.html", "vomnibarFrame", function() {})
+      this.vomnibarUI = new UIComponent("vimium/pages/vomnibar.html", "vomnibarFrame", function() {})
   },
 
   // This function opens the vomnibar. It accepts options, a map with the values:

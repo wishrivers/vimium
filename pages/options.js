@@ -346,7 +346,7 @@ const initPopupPage = function() {
   chrome.tabs.query({ active: true, currentWindow: true }, function(...args) {
     const [tab] = Array.from(args[0]);
     let exclusions = null;
-    document.getElementById("optionsLink").setAttribute("href", chrome.runtime.getURL("pages/options.html"));
+    document.getElementById("optionsLink").setAttribute("href", chrome.runtime.getURL("vimium/pages/options.html"));
 
     const tabPorts = chrome.extension.getBackgroundPage().portsForTab[tab.id];
     if (!tabPorts || !(Object.keys(tabPorts).length > 0)) {
@@ -423,13 +423,13 @@ const initPopupPage = function() {
 document.addEventListener("DOMContentLoaded", function() {
   DomUtils.injectUserCss(); // Manually inject custom user styles.
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', chrome.extension.getURL('pages/exclusions.html'), true);
+  xhr.open('GET', chrome.extension.getURL('vimium/pages/exclusions.html'), true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       $("exclusionScrollBox").innerHTML = xhr.responseText;
       switch (location.pathname) {
-        case "/pages/options.html": initOptionsPage(); break;
-        case "/pages/popup.html": initPopupPage(); break;
+        case "/vimium/pages/options.html": initOptionsPage(); break;
+        case "/vimium/pages/popup.html": initPopupPage(); break;
       }
     }
   };
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", function() {
 if (global.DomUtils) { // global.DomUtils is not defined when running our tests.
   DomUtils.documentReady(function() {
     // Only initialize backup/restore on the options page (not the popup).
-    if (location.pathname !== "/pages/options.html")
+    if (location.pathname !== "/vimium/pages/options.html")
       return;
 
     let restoreSettingsVersion = null;

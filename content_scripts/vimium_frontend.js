@@ -361,7 +361,7 @@ const flashFrame = (function() {
 
         // Inject stylesheet.
         const _styleSheet = DomUtils.createElement("style");
-        _styleSheet.innerHTML = `@import url(\"${chrome.runtime.getURL("content_scripts/vimium.css")}\");`;
+        _styleSheet.innerHTML = `@import url(\"${chrome.runtime.getURL("vimium/content_scripts/vimium.css")}\");`;
         _shadowDOM.appendChild(_styleSheet);
 
         const _frameEl = DomUtils.createElement("div");
@@ -461,7 +461,7 @@ if (root.HelpDialog == null) {
     toggle(request) {
       DomUtils.documentComplete(() => {
         if (!this.helpUI)
-          this.helpUI = new UIComponent("pages/help_dialog.html", "vimiumHelpDialogFrame", function() {});
+          this.helpUI = new UIComponent("vimium/pages/help_dialog.html", "vimiumHelpDialogFrame", function() {});
         return this.helpUI;
       });
 

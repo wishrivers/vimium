@@ -74,13 +74,13 @@ var BgUtils = {
 
   // Log messages to the extension's logging page, but only if that page is open.
   log: (function() {
-    const loggingPageUrl = chrome.runtime.getURL("pages/logging.html");
+    const loggingPageUrl = chrome.runtime.getURL("vimium/pages/logging.html");
     if (loggingPageUrl != null) { console.log(`Vimium logging URL:\n  ${loggingPageUrl}`); } // Do not output URL for tests.
     // For development, it's sometimes useful to automatically launch the logging page on reload.
     if (localStorage.autoLaunchLoggingPage) { chrome.windows.create({url: loggingPageUrl, focused: false}); }
     return function(message, sender = null) {
       for (let viewWindow of chrome.extension.getViews({type: "tab"})) {
-        if (viewWindow.location.pathname === "/pages/logging.html") {
+        if (viewWindow.location.pathname === "/vimium/pages/logging.html") {
           // Don't log messages from the logging page itself.  We do this check late because most of the time
           // it's not needed.
           if ((sender != null ? sender.url : undefined) !== loggingPageUrl) {

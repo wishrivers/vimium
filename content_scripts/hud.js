@@ -21,7 +21,7 @@ const HUD = {
     if (focusable == null)
       focusable = true;
     if (this.hudUI == null) {
-      this.hudUI = new UIComponent("pages/hud.html", "vimiumHUDFrame", ({data}) => {
+      this.hudUI = new UIComponent("vimium/pages/hud.html", "vimiumHUDFrame", ({data}) => {
         if (this[data.name])
           return this[data.name](data);
       });

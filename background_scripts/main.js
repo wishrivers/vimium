@@ -104,10 +104,10 @@ const onURLChange = details => chrome.tabs.sendMessage(details.tabId, {name: "ch
 chrome.webNavigation.onHistoryStateUpdated.addListener(onURLChange); // history.pushState.
 chrome.webNavigation.onReferenceFragmentUpdated.addListener(onURLChange); // Hash changed.
 
-// Cache "content_scripts/vimium.css" in chrome.storage.local for UI components.
+// Cache "vimium/content_scripts/vimium.css" in chrome.storage.local for UI components.
 (function() {
   const req = new XMLHttpRequest();
-  req.open("GET", chrome.runtime.getURL("content_scripts/vimium.css"), true); // true -> asynchronous.
+  req.open("GET", chrome.runtime.getURL("vimium/content_scripts/vimium.css"), true); // true -> asynchronous.
   req.onload = function() {
     const {status, responseText} = req;
     if (status === 200)
@@ -262,8 +262,8 @@ const BackgroundCommands = {
         } else {
           // Otherwise, just create a new tab.
           const newTabUrl = Settings.get("newTabUrl");
-          if (newTabUrl === "pages/blank.html") {
-            // "pages/blank.html" does not work in incognito mode, so fall back to "chrome://newtab" instead.
+          if (newTabUrl === "vimium/pages/blank.html") {
+            // "vimium/pages/blank.html" does not work in incognito mode, so fall back to "chrome://newtab" instead.
             request.urls = [request.tab.incognito ? "chrome://newtab" : chrome.runtime.getURL(newTabUrl)];
           } else {
             request.urls = [newTabUrl];
@@ -404,9 +404,9 @@ chrome.webNavigation.onCommitted.addListener(function({tabId, frameId}) {
 });
 
 // Symbolic names for the three browser-action icons.
-const ENABLED_ICON = "icons/browser_action_enabled.png";
-const DISABLED_ICON = "icons/browser_action_disabled.png";
-const PARTIAL_ICON = "icons/browser_action_partial.png";
+const ENABLED_ICON = "vimium/icons/browser_action_enabled.png";
+const DISABLED_ICON = "vimium/icons/browser_action_disabled.png";
+const PARTIAL_ICON = "vimium/icons/browser_action_partial.png";
 
 // Convert the three icon PNGs to image data.
 const iconImageData = {};
@@ -624,7 +624,7 @@ var sendRequestHandlers = {
   openUrlInIncognito(request) { return chrome.windows.create({incognito: true, url: Utils.convertToUrl(request.url)}); },
   openUrlInCurrentTab: TabOperations.openUrlInCurrentTab,
   openOptionsPageInNewTab(request) {
-    return chrome.tabs.create({url: chrome.runtime.getURL("pages/options.html"), index: request.tab.index + 1});
+    return chrome.tabs.create({url: chrome.runtime.getURL("vimium/pages/options.html"), index: request.tab.index + 1});
   },
   frameFocused: handleFrameFocused,
   nextFrame: BackgroundCommands.nextFrame,
@@ -683,7 +683,7 @@ window.runTests = () => open(chrome.runtime.getURL('tests/dom_tests/dom_tests.ht
       const notificationId = "VimiumUpgradeNotification";
       const notification = {
         type: "basic",
-        iconUrl: chrome.runtime.getURL("icons/vimium.png"),
+        iconUrl: chrome.runtime.getURL("vimium/icons/vimium.png"),
         title: "Vimium Upgrade",
         message: `Vimium has been upgraded to version ${currentVersion}. Click here for more information.`,
         isClickable: true
