@@ -238,7 +238,11 @@ var LinkHints = {
     }
   },
 
-  activateModeToOpenInNewTab(count) { this.activateMode(count, {mode: OPEN_IN_NEW_BG_TAB}); },
+  // activateModeToOpenInNewTab(count) { this.activateMode(count, {mode: OPEN_IN_NEW_BG_TAB}); },
+  activateModeToOpenInNewTab(count) {
+      _mode=window.location.href.startsWith('chrome-extension://') ? OPEN_IN_CURRENT_TAB : OPEN_IN_NEW_BG_TAB
+      this.activateMode(count, {mode: _mode});
+    },
   activateModeToOpenInNewForegroundTab(count) { this.activateMode(count, {mode: OPEN_IN_NEW_FG_TAB}); },
   activateModeToCopyLinkUrl(count) { this.activateMode(count, {mode: COPY_LINK_URL}); },
   activateModeWithQueue() { this.activateMode(1, {mode: OPEN_WITH_QUEUE}); },
